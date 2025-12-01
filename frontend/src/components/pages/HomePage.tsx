@@ -26,8 +26,8 @@ export function HomePage() {
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
-        const { data } = await axios.get('https://creative-palette-api.onrender.com
-/api/artworks')
+        const API = import.meta.env.VITE_BACKEND_URL
+        const { data } = await axios.get(`${API}/api/artworks`)
         setArtworks(data)
       } catch (error) {
         console.error(error)
@@ -45,13 +45,13 @@ export function HomePage() {
       {/* ⭐ SPLASH ANIMATION DIV */}
       <div
         id="bg-splash"
-        className="pointer-events-none fixed left-1/2 top-1/2 z-[9999] bg-amber-600 rounded-full opacity-100 splash-start">
-      </div>
+        className="pointer-events-none fixed left-1/2 top-1/2 z-[9999] bg-amber-600 rounded-full opacity-100 splash-start"
+      />
 
-      {/* ⭐ MAIN HERO SECTION WITH VIDEO BACKGROUND */}
+      {/* ⭐ MAIN HERO SECTION */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-neutral-100">
         
-        {/* 1. BACKGROUND VIDEO */}
+        {/* Background Video */}
         <video 
           autoPlay 
           muted 
@@ -65,16 +65,13 @@ export function HomePage() {
           />
         </video>
 
-        {/* 2. OVERLAY (Makes text readable over video) */}
-        {/* Adjust 'bg-white/80' to 'bg-white/60' if you want to see more video, or 'bg-black/50' if you want dark mode */}
         <div className="absolute inset-0 bg-white/80 z-0" />
 
-        {/* 3. OPTIONAL PATTERN OVERLAY (From your original code) */}
         <div className="absolute inset-0 opacity-10 z-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(217,119,6,0.3),transparent_50%)]" />
         </div>
 
-        {/* CONTENT (Relative z-10 ensures it sits ON TOP of the video) */}
+        {/* CONTENT */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
 
@@ -113,7 +110,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* REST OF YOUR PAGE (UNCHANGED) */}
+      {/* ABOUT SECTION */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -133,10 +130,10 @@ export function HomePage() {
               </div>
               <h2 className="font-serif text-neutral-900 mb-6">Pooja Chauhan</h2>
               <p className="text-neutral-600 mb-6">
-                A contemporary artist with over 15 years of experience, specializing in abstract and portrait paintings. My work has been featured in galleries across the country and collected by art enthusiasts worldwide.
+                A contemporary artist with over 15 years of experience, specializing in abstract and portrait paintings.
               </p>
               <p className="text-neutral-600 mb-8">
-                Each piece I create is a journey of emotion, color, and texture. I believe art should not only beautify a space but also evoke feelings and create meaningful connections.
+                Each piece I create is a journey of emotion, color, and texture.
               </p>
               <Link to="/about">
                 <Button variant="outline" className="rounded-lg border-neutral-300">
@@ -149,6 +146,7 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* TRENDING SECTION */}
       <section className="py-20 bg-neutral-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -165,11 +163,12 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* CTA SECTION */}
       <section className="py-20 bg-gradient-to-br from-amber-700 to-amber-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-serif text-white mb-6">Ready to Start Your Collection?</h2>
           <p className="text-amber-100 mb-8 max-w-2xl mx-auto">
-            Discover unique, original artworks that will transform your space and inspire you every day.
+            Discover unique, original artworks that will transform your space.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/gallery">
