@@ -46,8 +46,11 @@ export function CommissionPage() {
         data.append('images', img)
       })
 
-      await axios.post("https://creative-palette-api.onrender.com
-/api/commission/create", data)
+      // ✅ FIXED URL — NO LINE BREAK
+      await axios.post(
+        "https://creative-palette-api.onrender.com/api/commission/create",
+        data
+      )
 
       setSubmitted(true)
       toast.success('Commission request submitted successfully!')

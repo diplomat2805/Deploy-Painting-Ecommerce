@@ -146,186 +146,266 @@ const styles = `
     border-color: var(--c-amber-200);
     box-shadow: 0 0 0 3px var(--c-amber-50);
   }
-
-  /* Main Content */
-  .mo-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1.5rem;
-  }
-
-  /* Order Card */
-  .mo-card {
-    background-color: white;
-    border: 1px solid var(--c-slate-200);
-    border-radius: 0.75rem;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    transition: box-shadow 0.2s;
-  }
-  .mo-card:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-
-  .mo-card-header {
-    background-color: var(--c-slate-50);
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--c-slate-100);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    font-size: 0.875rem;
-    align-items: center;
-  }
-  .mo-header-group { display: flex; flex-direction: column; }
-  .mo-label {
-    font-size: 0.6875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--c-slate-500);
-    font-weight: 600;
-    margin-bottom: 0.25rem;
-  }
-  .mo-value { color: var(--c-slate-700); font-weight: 500; }
-  .mo-value.price { color: var(--c-slate-900); font-weight: 600; }
-
-  .mo-header-right { margin-left: auto; text-align: right; }
-  .mo-header-links { display: flex; gap: 0.75rem; margin-top: 0.25rem; font-size: 0.75rem; }
-  .mo-link { color: var(--c-amber-700); text-decoration: none; font-weight: 500; cursor: pointer; }
-  .mo-link:hover { text-decoration: underline; }
-
-  .mo-card-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
-  @media (min-width: 768px) { .mo-card-body { flex-direction: row; } }
-
-  .mo-status-col { min-width: 200px; }
-  .mo-status-title { font-weight: 700; color: var(--c-slate-900); margin-bottom: 0.25rem; font-size: 1rem; }
-  .mo-status-desc { font-size: 0.875rem; color: var(--c-slate-500); margin-bottom: 0.75rem; }
-
-  .mo-items-col { flex: 1; display: flex; flex-direction: column; gap: 1rem; }
-  .mo-item-row { display: flex; gap: 1rem; }
-  .mo-item-img-box {
-    width: 5rem; height: 5rem;
-    background-color: var(--c-slate-100);
-    border: 1px solid var(--c-slate-200);
-    border-radius: 0.5rem;
-    overflow: hidden;
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .mo-item-img { width: 100%; height: 100%; object-fit: cover; }
-  .mo-item-placeholder { color: var(--c-slate-300); }
-
-  .mo-item-info h4 { font-weight: 600; color: var(--c-amber-700); font-size: 0.95rem; margin: 0 0 0.25rem 0; }
-  .mo-item-meta { font-size: 0.75rem; color: var(--c-slate-500); }
-  .mo-item-price { font-weight: 500; color: var(--c-slate-900); font-size: 0.875rem; margin-top: 0.5rem; }
-
-  .mo-actions-col {
-    display: flex; flex-direction: column; gap: 0.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--c-slate-100);
-  }
-  @media (min-width: 768px) {
-    .mo-actions-col { border-top: none; border-left: 1px solid var(--c-slate-100); padding-top: 0; padding-left: 1.5rem; width: 200px; }
-  }
-  .mo-btn {
-    width: 100%;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    text-align: center;
-    border: 1px solid var(--c-slate-300);
-    background: white;
-    color: var(--c-slate-700);
-    transition: all 0.2s;
-  }
-  .mo-btn:hover { background-color: var(--c-slate-50); }
-
-  /* Badge */
-  .mo-badge {
-    display: inline-flex; align-items: center; gap: 0.375rem;
-    padding: 0.125rem 0.625rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border: 1px solid transparent;
-  }
-  .mo-badge.processing { background: var(--c-blue-50); color: var(--c-blue-700); border-color: #dbeafe; }
-  .mo-badge.shipped { background: var(--c-amber-50); color: var(--c-amber-700); border-color: #fef3c7; }
-  .mo-badge.delivered { background: var(--c-emerald-50); color: var(--c-emerald-700); border-color: #d1fae5; }
-  .mo-badge.cancelled { background: var(--c-slate-100); color: var(--c-slate-600); border-color: var(--c-slate-200); }
-
-  /* Empty State */
-  .mo-empty {
-    text-align: center;
-    padding: 6rem 2rem;
-    background: white;
-    border-radius: 1rem;
-    border: 1px solid var(--c-slate-200);
-  }
-  .mo-empty-icon {
-    width: 4rem; height: 4rem;
-    background: var(--c-slate-50);
-    color: var(--c-slate-400);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1.5rem;
-  }
-  .mo-empty h3 { font-size: 1.125rem; font-weight: 600; color: var(--c-slate-900); margin: 0 0 0.5rem; }
-  .mo-empty p { color: var(--c-slate-500); font-size: 0.875rem; margin-bottom: 1.5rem; }
-  .mo-empty-btn { color: var(--c-amber-700); font-weight: 500; background: none; border: none; cursor: pointer; }
-  .mo-empty-btn:hover { text-decoration: underline; }
-
-  /* Modal */
-  .mo-modal-overlay {
-    position: fixed; inset: 0;
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(4px);
-    z-index: 50;
-    display: flex; align-items: center; justify-content: center;
-    padding: 1rem;
-  }
-  .mo-modal {
-    background: white;
-    width: 100%; max-width: 800px;
-    max-height: 90vh;
-    border-radius: 1rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex; flex-direction: column;
-    animation: mo-fade-in 0.2s ease-out;
-  }
-  @keyframes mo-fade-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
-  .mo-modal-header {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--c-slate-100);
-    display: flex; justify-content: space-between; align-items: center;
-    background: white;
-  }
-  .mo-modal-title { font-size: 1.25rem; font-weight: 700; color: var(--c-slate-900); margin: 0; }
-  .mo-close-btn { background: none; border: none; color: var(--c-slate-400); cursor: pointer; padding: 0.5rem; border-radius: 50%; }
-  .mo-close-btn:hover { background: var(--c-slate-50); color: var(--c-slate-600); }
-
-  .mo-modal-content { padding: 2rem; overflow-y: auto; }
-  
-  .mo-modal-grid { display: grid; gap: 2rem; margin-top: 2rem; }
-  @media (min-width: 768px) { .mo-modal-grid { grid-template-columns: repeat(3, 1fr); } }
-  
-  .mo-info-block h4 { font-weight: 700; color: var(--c-slate-900); margin: 0 0 0.75rem 0; font-size: 0.875rem; border-bottom: 1px solid var(--c-slate-100); padding-bottom: 0.5rem; }
-  .mo-info-text { font-size: 0.875rem; color: var(--c-slate-600); line-height: 1.5; }
-  .mo-info-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.875rem; }
-  .mo-total-row { display: flex; justify-content: space-between; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--c-slate-100); font-weight: 700; color: var(--c-slate-900); }
-
-  .mo-modal-items { border: 1px solid var(--c-slate-200); border-radius: 0.75rem; overflow: hidden; margin-top: 2rem; }
-  .mo-items-header { background: var(--c-slate-50); padding: 0.75rem 1rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--c-slate-500); border-bottom: 1px solid var(--c-slate-200); }
-  .mo-modal-item-row { padding: 1rem; display: flex; gap: 1rem; align-items: center; border-bottom: 1px solid var(--c-slate-100); }
-  .mo-modal-item-row:last-child { border-bottom: none; }
-
-  /* Loading Spinner */
-  .mo-spinner { width: 2rem; height: 2rem; border: 3px solid var(--c-slate-200); border-top-color: var(--c-amber-600); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
-  @keyframes spin { to { transform: rotate(360deg); } }
 `;
+/* Main Content */
+.mo-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+/* Order Card */
+.mo-card {
+  background-color: white;
+  border: 1px solid var(--c-slate-200);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: box-shadow 0.2s;
+}
+.mo-card:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+
+.mo-card-header {
+  background-color: var(--c-slate-50);
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--c-slate-100);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  font-size: 0.875rem;
+  align-items: center;
+}
+.mo-header-group { display: flex; flex-direction: column; }
+.mo-label {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--c-slate-500);
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.mo-value { color: var(--c-slate-700); font-weight: 500; }
+.mo-value.price { color: var(--c-slate-900); font-weight: 600; }
+
+.mo-header-right { margin-left: auto; text-align: right; }
+.mo-header-links { display: flex; gap: 0.75rem; margin-top: 0.25rem; font-size: 0.75rem; }
+.mo-link { color: var(--c-amber-700); text-decoration: none; font-weight: 500; cursor: pointer; }
+.mo-link:hover { text-decoration: underline; }
+
+.mo-card-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+@media (min-width: 768px) { .mo-card-body { flex-direction: row; } }
+
+.mo-status-col { min-width: 200px; }
+.mo-status-title { font-weight: 700; color: var(--c-slate-900); margin-bottom: 0.25rem; font-size: 1rem; }
+.mo-status-desc { font-size: 0.875rem; color: var(--c-slate-500); margin-bottom: 0.75rem; }
+
+.mo-items-col { flex: 1; display: flex; flex-direction: column; gap: 1rem; }
+.mo-item-row { display: flex; gap: 1rem; }
+.mo-item-img-box {
+  width: 5rem; height: 5rem;
+  background-color: var(--c-slate-100);
+  border: 1px solid var(--c-slate-200);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.mo-item-img { width: 100%; height: 100%; object-fit: cover; }
+.mo-item-placeholder { color: var(--c-slate-300); }
+
+.mo-item-info h4 { font-weight: 600; color: var(--c-amber-700); font-size: 0.95rem; margin: 0 0 0.25rem 0; }
+.mo-item-meta { font-size: 0.75rem; color: var(--c-slate-500); }
+.mo-item-price { font-weight: 500; color: var(--c-slate-900); font-size: 0.875rem; margin-top: 0.5rem; }
+
+.mo-actions-col {
+  display: flex; flex-direction: column; gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--c-slate-100);
+}
+@media (min-width: 768px) {
+  .mo-actions-col { border-top: none; border-left: 1px solid var(--c-slate-100); padding-top: 0; padding-left: 1.5rem; width: 200px; }
+}
+.mo-btn {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid var(--c-slate-300);
+  background: white;
+  color: var(--c-slate-700);
+  transition: all 0.2s;
+}
+.mo-btn:hover { background-color: var(--c-slate-50); }
+
+/* Badge */
+.mo-badge {
+  display: inline-flex; align-items: center; gap: 0.375rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+.mo-badge.processing { background: var(--c-blue-50); color: var(--c-blue-700); border-color: #dbeafe; }
+.mo-badge.shipped { background: var(--c-amber-50); color: var(--c-amber-700); border-color: #fef3c7; }
+.mo-badge.delivered { background: var(--c-emerald-50); color: var(--c-emerald-700); border-color: #d1fae5; }
+.mo-badge.cancelled { background: var(--c-slate-100); color: var(--c-slate-600); border-color: var(--c-slate-200); }
+
+/* Empty State */
+.mo-empty {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: white;
+  border-radius: 1rem;
+  border: 1px solid var(--c-slate-200);
+}
+.mo-empty-icon {
+  width: 4rem; height: 4rem;
+  background: var(--c-slate-50);
+  color: var(--c-slate-400);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+.mo-empty h3 { font-size: 1.125rem; font-weight: 600; color: var(--c-slate-900); margin: 0 0 0.5rem; }
+.mo-empty p { color: var(--c-slate-500); font-size: 0.875rem; margin-bottom: 1.5rem; }
+.mo-empty-btn { color: var(--c-amber-700); font-weight: 500; background: none; border: none; cursor: pointer; }
+.mo-empty-btn:hover { text-decoration: underline; }
+/* Modal */
+.mo-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+}
+.mo-modal {
+  background: white;
+  width: 100%; max-width: 800px;
+  max-height: 90vh;
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  animation: mo-fade-in 0.2s ease-out;
+}
+@keyframes mo-fade-in { 
+  from { opacity: 0; transform: scale(0.95); } 
+  to { opacity: 1; transform: scale(1); } 
+}
+
+.mo-modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--c-slate-100);
+  display: flex; justify-content: space-between; align-items: center;
+  background: white;
+}
+.mo-modal-title { 
+  font-size: 1.25rem; 
+  font-weight: 700; 
+  color: var(--c-slate-900); 
+  margin: 0; 
+}
+.mo-close-btn { 
+  background: none; 
+  border: none; 
+  color: var(--c-slate-400); 
+  cursor: pointer; 
+  padding: 0.5rem; 
+  border-radius: 50%; 
+}
+.mo-close-btn:hover { 
+  background: var(--c-slate-50); 
+  color: var(--c-slate-600); 
+}
+
+.mo-modal-content { 
+  padding: 2rem; 
+  overflow-y: auto; 
+}
+
+.mo-modal-grid { 
+  display: grid; gap: 2rem; 
+  margin-top: 2rem; 
+}
+@media (min-width: 768px) { 
+  .mo-modal-grid { grid-template-columns: repeat(3, 1fr); } 
+}
+
+.mo-info-block h4 { 
+  font-weight: 700; 
+  color: var(--c-slate-900); 
+  margin: 0 0 0.75rem 0; 
+  font-size: 0.875rem; 
+  border-bottom: 1px solid var(--c-slate-100); 
+  padding-bottom: 0.5rem; 
+}
+.mo-info-text { 
+  font-size: 0.875rem; 
+  color: var(--c-slate-600); 
+  line-height: 1.5; 
+}
+.mo-info-row { 
+  display: flex; 
+  justify-content: space-between; 
+  margin-bottom: 0.5rem; 
+  font-size: 0.875rem; 
+}
+.mo-total-row { 
+  display: flex; 
+  justify-content: space-between; 
+  margin-top: 0.75rem; 
+  padding-top: 0.75rem; 
+  border-top: 1px solid var(--c-slate-100); 
+  font-weight: 700; 
+  color: var(--c-slate-900); 
+}
+
+.mo-modal-items { 
+  border: 1px solid var(--c-slate-200); 
+  border-radius: 0.75rem; 
+  overflow: hidden; 
+  margin-top: 2rem; 
+}
+.mo-items-header { 
+  background: var(--c-slate-50); 
+  padding: 0.75rem 1rem; 
+  font-size: 0.75rem; 
+  font-weight: 600; 
+  text-transform: uppercase; 
+  color: var(--c-slate-500); 
+  border-bottom: 1px solid var(--c-slate-200); 
+}
+.mo-modal-item-row { 
+  padding: 1rem; 
+  display: flex; 
+  gap: 1rem; 
+  align-items: center; 
+  border-bottom: 1px solid var(--c-slate-100); 
+}
+.mo-modal-item-row:last-child { 
+  border-bottom: none; 
+}
+
+/* Loading Spinner */
+.mo-spinner { 
+  width: 2rem; 
+  height: 2rem; 
+  border: 3px solid var(--c-slate-200); 
+  border-top-color: var(--c-amber-600); 
+  border-radius: 50%; 
+  animation: spin 1s linear infinite; 
+  margin: 0 auto 1rem; 
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+`;
+
 
 // MAIN COMPONENT
 export default function MyOrders() {
@@ -344,8 +424,7 @@ export default function MyOrders() {
   const fetchOrders = async () => {
     try {
       const res = await axios.get(
-        `https://creative-palette-api.onrender.com
-/api/order/user/${user._id}`,
+        `https://creative-palette-api.onrender.com/api/order/user/${user._id}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
 
@@ -356,13 +435,11 @@ export default function MyOrders() {
       setLoading(false);
     }
   };
-
   // Download Invoice
   const downloadInvoice = async (orderId) => {
     try {
       const response = await axios.get(
-        `https://creative-palette-api.onrender.com
-/api/order/${orderId}/invoice`,
+        `https://creative-palette-api.onrender.com/api/order/${orderId}/invoice`,
         { responseType: "blob" }
       );
 
@@ -536,19 +613,11 @@ export default function MyOrders() {
                       </p>
 
                       <span className={`mo-badge ${order.orderStatus.toLowerCase()}`}>
-                        {order.orderStatus === "SHIPPED" && (
-                          <Truck size={13} />
-                        )}
-                        {order.orderStatus === "DELIVERED" && (
-                          <CheckCircle size={13} />
-                        )}
-                        {order.orderStatus === "CANCELLED" && (
-                          <X size={13} />
-                        )}
+                        {order.orderStatus === "SHIPPED" && <Truck size={13} />}
+                        {order.orderStatus === "DELIVERED" && <CheckCircle size={13} />}
+                        {order.orderStatus === "CANCELLED" && <X size={13} />}
                         {(order.orderStatus === "PLACED" ||
-                          order.orderStatus === "CONFIRMED") && (
-                          <Clock size={13} />
-                        )}
+                          order.orderStatus === "CONFIRMED") && <Clock size={13} />}
                         {order.orderStatus}
                       </span>
                     </div>
@@ -570,9 +639,7 @@ export default function MyOrders() {
 
                           <div className="mo-item-info">
                             <h4>{item.title}</h4>
-                            <div className="mo-item-meta">
-                              Original Artwork
-                            </div>
+                            <div className="mo-item-meta">Original Artwork</div>
                             <div className="mo-item-price">
                               ₹{item.price.toLocaleString()}
                             </div>
@@ -582,16 +649,10 @@ export default function MyOrders() {
                     </div>
 
                     <div className="mo-actions-col">
-                      <button
-                        className="mo-btn"
-                        onClick={() => alert("Tracking coming soon")}
-                      >
+                      <button className="mo-btn" onClick={() => alert("Tracking coming soon")}>
                         Track Package
                       </button>
-                      <button
-                        className="mo-btn"
-                        onClick={() => alert("Review feature coming soon")}
-                      >
+                      <button className="mo-btn" onClick={() => alert("Review feature coming soon")}>
                         Write a Review
                       </button>
                     </div>
@@ -604,17 +665,11 @@ export default function MyOrders() {
 
         {/* MODAL */}
         {selectedOrder && (
-          <div
-            className="mo-modal-overlay"
-            onClick={() => setSelectedOrder(null)}
-          >
+          <div className="mo-modal-overlay" onClick={() => setSelectedOrder(null)}>
             <div className="mo-modal" onClick={(e) => e.stopPropagation()}>
               <div className="mo-modal-header">
                 <h2 className="mo-modal-title">Order Details</h2>
-                <button
-                  className="mo-close-btn"
-                  onClick={() => setSelectedOrder(null)}
-                >
+                <button className="mo-close-btn" onClick={() => setSelectedOrder(null)}>
                   <X size={20} />
                 </button>
               </div>
@@ -628,9 +683,7 @@ export default function MyOrders() {
                   }}
                 >
                   <div>
-                    <span style={{ color: "var(--c-slate-500)" }}>
-                      Ordered on{" "}
-                    </span>
+                    <span style={{ color: "var(--c-slate-500)" }}>Ordered on </span>
                     <span style={{ fontWeight: 600 }}>
                       {new Date(selectedOrder.createdAt).toLocaleDateString()}
                     </span>
@@ -650,9 +703,7 @@ export default function MyOrders() {
                   <div className="mo-info-block">
                     <h4>Shipping Address</h4>
                     <div className="mo-info-text">
-                      <strong>
-                        {selectedOrder.shippingAddress.fullName}
-                      </strong>
+                      <strong>{selectedOrder.shippingAddress.fullName}</strong>
                       <br />
                       {selectedOrder.shippingAddress.addressLine1}
                       <br />
@@ -667,13 +718,7 @@ export default function MyOrders() {
                   <div className="mo-info-block">
                     <h4>Payment Method</h4>
                     <div className="mo-info-text">
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: 8,
-                        }}
-                      >
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                         <CreditCard size={16} /> Razorpay
                       </div>
                       <span
@@ -692,23 +737,17 @@ export default function MyOrders() {
                     <h4>Order Summary</h4>
                     <div className="mo-info-row">
                       <span>Subtotal:</span>
-                      <span>
-                        ₹{selectedOrder.totalAmount.toLocaleString()}
-                      </span>
+                      <span>₹{selectedOrder.totalAmount.toLocaleString()}</span>
                     </div>
 
                     <div className="mo-info-row">
                       <span>Shipping:</span>
-                      <span style={{ color: "var(--c-emerald-600)" }}>
-                        Free
-                      </span>
+                      <span style={{ color: "var(--c-emerald-600)" }}>Free</span>
                     </div>
 
                     <div className="mo-total-row">
                       <span>Total:</span>
-                      <span>
-                        ₹{selectedOrder.totalAmount.toLocaleString()}
-                      </span>
+                      <span>₹{selectedOrder.totalAmount.toLocaleString()}</span>
                     </div>
                   </div>
                 </div>
@@ -724,11 +763,7 @@ export default function MyOrders() {
                         style={{ width: "4rem", height: "4rem" }}
                       >
                         {item.image ? (
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="mo-item-img"
-                          />
+                          <img src={item.image} alt={item.title} className="mo-item-img" />
                         ) : (
                           <Package className="mo-item-placeholder" />
                         )}
@@ -759,6 +794,7 @@ export default function MyOrders() {
                     </div>
                   ))}
                 </div>
+
               </div>
             </div>
           </div>

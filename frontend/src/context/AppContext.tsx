@@ -23,7 +23,7 @@ export interface CartItem {
 }
 
 interface UserType {
-  _id: string                // 🔥 FIX: Added user _id
+  _id: string
   name: string
   email: string
   token: string
@@ -54,23 +54,18 @@ function getUserCartKey(email: string) {
   return `cart_${email}`
 }
 
-// Merge carts: guest + user
+// Merge carts
 function mergeCarts(guest: CartItem[] = [], user: CartItem[] = []): CartItem[] {
   const map = new Map<string, CartItem>()
 
-  // user cart as base
   for (const item of user) {
     map.set(item.artwork.id, { ...item })
   }
 
-  // merge guest cart
   for (const item of guest) {
     const existing = map.get(item.artwork.id)
-    if (existing) {
-      existing.quantity += item.quantity
-    } else {
-      map.set(item.artwork.id, { ...item })
-    }
+    if (existing) existing.quantity += item.quantity
+    else map.set(item.artwork.id, { ...item })
   }
 
   return Array.from(map.values())
@@ -81,67 +76,44 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [wishlist, setWishlist] = useState<Artwork[]>([])
   const [user, setUser] = useState<UserType | null>(null)
 
-  // Restore user
+  // Restore everything
   useEffect(() => {
     const savedUserStr = localStorage.getItem('user')
+    let savedUser: UserType | null = null
+
     if (savedUserStr) {
       try {
-        setUser(JSON.parse(savedUserStr))
+        savedUser = JSON.parse(savedUserStr)
+        setUser(savedUser)
       } catch {
-        setUser(null)
+        savedUser = null
       }
     }
 
-    // Restore cart
-    const savedUser = savedUserStr ? JSON.parse(savedUserStr) : null
     if (savedUser) {
-      const userCartStr = localStorage.getItem(getUserCartKey(savedUser.email))
-      if (userCartStr) {
-        try {
-          setCart(JSON.parse(userCartStr))
-        } catch {
-          setCart([])
-        }
-      }
+      const userCart = localStorage.getItem(getUserCartKey(savedUser.email))
+      if (userCart) setCart(JSON.parse(userCart))
     } else {
       const guestCart = localStorage.getItem(GUEST_CART_KEY)
-      if (guestCart) {
-        try {
-          setCart(JSON.parse(guestCart))
-        } catch {
-          setCart([])
-        }
-      }
+      if (guestCart) setCart(JSON.parse(guestCart))
     }
 
     const savedWishlist = localStorage.getItem('wishlist')
-    if (savedWishlist) {
-      try {
-        setWishlist(JSON.parse(savedWishlist))
-      } catch {
-        setWishlist([])
-      }
-    }
+    if (savedWishlist) setWishlist(JSON.parse(savedWishlist))
   }, [])
 
-  // Persist wishlist
   useEffect(() => {
     localStorage.setItem('wishlist', JSON.stringify(wishlist))
   }, [wishlist])
 
-  // Persist cart
   useEffect(() => {
     const key = user ? getUserCartKey(user.email) : GUEST_CART_KEY
     localStorage.setItem(key, JSON.stringify(cart))
   }, [cart, user])
 
-  // Persist user
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user))
-    } else {
-      localStorage.removeItem('user')
-    }
+    if (user) localStorage.setItem('user', JSON.stringify(user))
+    else localStorage.removeItem('user')
   }, [user])
 
   const addToCart = (artwork: Artwork) => {
@@ -163,10 +135,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }
 
   const updateCartQuantity = (artworkId: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(artworkId)
-      return
-    }
+    if (quantity <= 0) return removeFromCart(artworkId)
+
     setCart(prev =>
       prev.map(item =>
         item.artwork.id === artworkId ? { ...item, quantity } : item
@@ -174,9 +144,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     )
   }
 
-  const clearCart = () => {
-    setCart([])
-  }
+  const clearCart = () => setCart([])
 
   const addToWishlist = (artwork: Artwork) => {
     setWishlist(prev => {
@@ -189,50 +157,44 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setWishlist(prev => prev.filter(item => item.id !== artworkId))
   }
 
-  const isInWishlist = (artworkId: string) => {
-    return wishlist.some(item => item.id === artworkId)
-  }
+  const isInWishlist = (artworkId: string) =>
+    wishlist.some(item => item.id === artworkId)
 
-  // 🔥 LOGIN — FIX: now storing user._id
+  // LOGIN fixed — NO MULTILINE URL
   const login = async (email: string, password: string): Promise<UserType> => {
     try {
-      const { data } = await axios.post('https://creative-palette-api.onrender.com
-/api/auth/login', {
-        email,
-        password
-      })
+      const { data } = await axios.post(
+        "https://creative-palette-api.onrender.com/api/auth/login",
+        { email, password }
+      )
 
       const userData: UserType = {
-        _id: data._id,            // 🔥 FIX: storing MongoDB _id
+        _id: data._id,
         name: data.name,
         email: data.email,
         token: data.token,
-        isAdmin: data.role === 'admin'
+        isAdmin: data.role === "admin"
       }
 
-      // Merge carts
       const guestCartStr = localStorage.getItem(GUEST_CART_KEY)
       const userCartKey = getUserCartKey(userData.email)
       const userCartStr = localStorage.getItem(userCartKey)
 
-      let guestCart: CartItem[] = []
-      let userCart: CartItem[] = []
-
-      if (guestCartStr) guestCart = JSON.parse(guestCartStr)
-      if (userCartStr) userCart = JSON.parse(userCartStr)
+      let guestCart: CartItem[] = guestCartStr ? JSON.parse(guestCartStr) : []
+      let userCart: CartItem[] = userCartStr ? JSON.parse(userCartStr) : []
 
       const mergedCart = mergeCarts(guestCart, userCart)
 
       setUser(userData)
       setCart(mergedCart)
 
-      localStorage.setItem('token', data.token)
+      localStorage.setItem("token", data.token)
       localStorage.setItem(userCartKey, JSON.stringify(mergedCart))
       localStorage.removeItem(GUEST_CART_KEY)
 
       return userData
     } catch (error: any) {
-      throw new Error(error.response?.data?.message || 'Login failed')
+      throw new Error(error.response?.data?.message || "Login failed")
     }
   }
 
@@ -243,12 +205,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
 
     setUser(null)
-    localStorage.removeItem('user')
-    localStorage.removeItem('token')
+    localStorage.removeItem("user")
+    localStorage.removeItem("token")
 
     const guestCartStr = localStorage.getItem(GUEST_CART_KEY)
-    if (guestCartStr) setCart(JSON.parse(guestCartStr))
-    else setCart([])
+    setCart(guestCartStr ? JSON.parse(guestCartStr) : [])
   }
 
   return (
@@ -275,6 +236,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
 export function useApp() {
   const ctx = useContext(AppContext)
-  if (!ctx) throw new Error('useApp must be used within AppProvider')
+  if (!ctx) throw new Error("useApp must be used within AppProvider")
   return ctx
 }
