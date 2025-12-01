@@ -25,7 +25,8 @@ export function RegisterPage() {
     }
 
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/register', {
+      const { data } = await axios.post('https://creative-palette-api.onrender.com
+/api/auth/register', {
         name,
         email,
         password

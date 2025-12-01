@@ -344,7 +344,8 @@ export default function MyOrders() {
   const fetchOrders = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/order/user/${user._id}`,
+        `https://creative-palette-api.onrender.com
+/api/order/user/${user._id}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
 
@@ -360,7 +361,8 @@ export default function MyOrders() {
   const downloadInvoice = async (orderId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/order/${orderId}/invoice`,
+        `https://creative-palette-api.onrender.com
+/api/order/${orderId}/invoice`,
         { responseType: "blob" }
       );
 

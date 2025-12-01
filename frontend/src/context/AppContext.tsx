@@ -196,7 +196,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   // 🔥 LOGIN — FIX: now storing user._id
   const login = async (email: string, password: string): Promise<UserType> => {
     try {
-      const { data } = await axios.post('http://localhost:5000/api/auth/login', {
+      const { data } = await axios.post('https://creative-palette-api.onrender.com
+/api/auth/login', {
         email,
         password
       })

@@ -75,7 +75,8 @@ export function CheckoutPage() {
       price: item.artwork.price,
     }));
 
-    const res = await axios.post("http://localhost:5000/api/order/create", {
+    const res = await axios.post("https://creative-palette-api.onrender.com
+/api/order/create", {
       userId,
       items,
       shippingAddress,
@@ -89,7 +90,8 @@ export function CheckoutPage() {
   // Initiate Payment
   // -------------------------------------------------------------
   const initiatePayment = async (orderId: string) => {
-    const res = await axios.post("http://localhost:5000/api/payment/initiate", {
+    const res = await axios.post("https://creative-palette-api.onrender.com
+/api/payment/initiate", {
       orderId,
     });
     return res.data;
@@ -120,7 +122,8 @@ export function CheckoutPage() {
 
         try {
           const verify = await axios.post(
-            "http://localhost:5000/api/payment/verify",
+            "https://creative-palette-api.onrender.com
+/api/payment/verify",
             response
           );
 

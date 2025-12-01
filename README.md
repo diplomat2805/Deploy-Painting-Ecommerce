@@ -71,7 +71,8 @@ node server.js
 ```
 Backend will run at:
 ```
-http://localhost:5000
+https://creative-palette-api.onrender.com
+
 ```
 
 ## 🔥 Start Frontend
@@ -118,7 +119,8 @@ Art-gallery/
 
 Default:
 ```
-http://localhost:5000/api
+https://creative-palette-api.onrender.com
+/api
 ```
 
 ---

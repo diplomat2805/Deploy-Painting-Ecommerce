@@ -29,7 +29,8 @@ export function ArtworkDetailPage() {
 
     const fetchArtwork = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/artworks/${id}`)
+        const res = await axios.get(`https://creative-palette-api.onrender.com
+/api/artworks/${id}`)
         const data = {
           ...res.data,
           id: res.data._id,
@@ -39,7 +40,8 @@ export function ArtworkDetailPage() {
 
         setArtwork(data)
 
-        const all = await axios.get('http://localhost:5000/api/artworks')
+        const all = await axios.get('https://creative-palette-api.onrender.com
+/api/artworks')
         const related = all.data
           .filter((a: any) => a.category === data.category && a._id !== data.id)
           .slice(0, 4)

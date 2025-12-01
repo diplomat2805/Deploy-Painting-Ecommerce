@@ -1,10 +1,12 @@
 handler: async (response: any) => {
 
   // 1️⃣ First verify payment
-  await axios.post("http://localhost:5000/api/payment/verify-payment", response);
+  await axios.post("https://creative-palette-api.onrender.com
+/api/payment/verify-payment", response);
 
   // 2️⃣ Then send checkout details to database
-  await axios.post("http://localhost:5000/api/checkout/create", {
+  await axios.post("https://creative-palette-api.onrender.com
+/api/checkout/create", {
     name: checkoutForm.name,
     email: checkoutForm.email,
     phone: checkoutForm.phone,

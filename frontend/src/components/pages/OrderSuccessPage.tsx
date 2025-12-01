@@ -48,7 +48,8 @@ export function OrderSuccessPage() {
   // Fetch from backend
   const fetchOrder = async (orderId: string) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/order/${orderId}`);
+      const res = await axios.get(`https://creative-palette-api.onrender.com
+/api/order/${orderId}`);
       setOrder(res.data);
       setLoading(false);
 
@@ -70,7 +71,8 @@ export function OrderSuccessPage() {
 
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/payment/invoice/${orderId}`,
+        `https://creative-palette-api.onrender.com
+/api/payment/invoice/${orderId}`,
         { responseType: "blob" }
       );
 

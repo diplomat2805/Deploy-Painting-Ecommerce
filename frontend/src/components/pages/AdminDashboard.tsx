@@ -59,10 +59,12 @@ export function AdminDashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const artworksRes = await axios.get('http://localhost:5000/api/artworks')
+        const artworksRes = await axios.get('https://creative-palette-api.onrender.com
+/api/artworks')
 
         const ordersRes = await axios.get(
-          'http://localhost:5000/api/order/admin/all'
+          'https://creative-palette-api.onrender.com
+/api/order/admin/all'
         )
 
         const formatted = artworksRes.data.map((a: any) => ({
@@ -134,7 +136,8 @@ export function AdminDashboard() {
     try {
       if (editingArtwork) {
         const res = await axios.put(
-          `http://localhost:5000/api/artworks/${editingArtwork.id}`,
+          `https://creative-palette-api.onrender.com
+/api/artworks/${editingArtwork.id}`,
           data,
           {
             headers: {
@@ -147,7 +150,8 @@ export function AdminDashboard() {
         const updated = { ...res.data, id: res.data._id }
         setArtworks(prev => prev.map(a => (a.id === updated.id ? updated : a)))
       } else {
-        const res = await axios.post('http://localhost:5000/api/artworks', data, {
+        const res = await axios.post('https://creative-palette-api.onrender.com
+/api/artworks', data, {
           headers: {
             Authorization: `Bearer ${user.token}`,
             'Content-Type': 'multipart/form-data'
@@ -166,7 +170,8 @@ export function AdminDashboard() {
 
   const deleteArtwork = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:5000/api/artworks/${id}`, tokenHeader)
+      await axios.delete(`https://creative-palette-api.onrender.com
+/api/artworks/${id}`, tokenHeader)
       setArtworks(prev => prev.filter(a => a.id !== id))
     } catch (error) {
       console.log(error)
@@ -179,7 +184,8 @@ export function AdminDashboard() {
   const handleStatusChange = async (orderId: string, newStatus: OrderStatus) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/order/status/${orderId}`,
+        `https://creative-palette-api.onrender.com
+/api/order/status/${orderId}`,
         { status: newStatus },
         tokenHeader
       )

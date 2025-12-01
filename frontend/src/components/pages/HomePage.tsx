@@ -26,7 +26,8 @@ export function HomePage() {
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/artworks')
+        const { data } = await axios.get('https://creative-palette-api.onrender.com
+/api/artworks')
         setArtworks(data)
       } catch (error) {
         console.error(error)

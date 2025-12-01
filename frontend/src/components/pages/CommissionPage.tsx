@@ -46,7 +46,8 @@ export function CommissionPage() {
         data.append('images', img)
       })
 
-      await axios.post("http://localhost:5000/api/commission/create", data)
+      await axios.post("https://creative-palette-api.onrender.com
+/api/commission/create", data)
 
       setSubmitted(true)
       toast.success('Commission request submitted successfully!')
