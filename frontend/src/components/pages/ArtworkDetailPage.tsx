@@ -29,8 +29,10 @@ export function ArtworkDetailPage() {
 
     const fetchArtwork = async () => {
       try {
-        const res = await axios.get(`https://creative-palette-api.onrender.com
-/api/artworks/${id}`)
+        const API = import.meta.env.VITE_BACKEND_URL
+
+        // Fetch the artwork
+        const res = await axios.get(`${API}/api/artworks/${id}`)
         const data = {
           ...res.data,
           id: res.data._id,
@@ -40,8 +42,8 @@ export function ArtworkDetailPage() {
 
         setArtwork(data)
 
-        const all = await axios.get('https://creative-palette-api.onrender.com
-/api/artworks')
+        // Fetch all artworks for related items
+        const all = await axios.get(`${API}/api/artworks`)
         const related = all.data
           .filter((a: any) => a.category === data.category && a._id !== data.id)
           .slice(0, 4)
@@ -163,43 +165,26 @@ export function ArtworkDetailPage() {
           <div className="flex-1 space-y-6">
             <h1 className="text-3xl font-serif">{artwork.title}</h1>
 
-            {/* ✅ RUPEE SYMBOL APPLIED */}
-            <div className="text-2xl text-amber-700 font-semibold">
-              ₹{artwork.price}
-            </div>
+            <div className="text-2xl text-amber-700 font-semibold">₹{artwork.price}</div>
 
             <p className="text-neutral-600">{artwork.description}</p>
 
             <div className="bg-neutral-50 p-5 rounded-xl space-y-2">
-              <div>
-                <b>Dimensions:</b> {artwork.dimensions}
-              </div>
-              <div>
-                <b>Size:</b> {artwork.size}
-              </div>
-              <div>
-                <b>Status:</b> {artwork.availability}
-              </div>
+              <div><b>Dimensions:</b> {artwork.dimensions}</div>
+              <div><b>Size:</b> {artwork.size}</div>
+              <div><b>Status:</b> {artwork.availability}</div>
             </div>
 
             {artwork.availability === 'available' && (
               <div className="flex gap-4">
-                <Button
-                  onClick={handleAddToCart}
-                  className="flex-1 bg-amber-700 hover:bg-amber-800 py-6"
-                >
+                <Button onClick={handleAddToCart} className="flex-1 bg-amber-700 hover:bg-amber-800 py-6">
                   <ShoppingCart className="mr-2 w-5 h-5" />
                   Add to Cart
                 </Button>
 
-                <Button
-                  onClick={handleWishlist}
-                  variant="outline"
-                >
+                <Button onClick={handleWishlist} variant="outline">
                   <Heart
-                    className={`w-5 h-5 ${
-                      inWishlist ? 'text-red-500 fill-red-500' : ''
-                    }`}
+                    className={`w-5 h-5 ${inWishlist ? 'text-red-500 fill-red-500' : ''}`}
                   />
                 </Button>
               </div>
