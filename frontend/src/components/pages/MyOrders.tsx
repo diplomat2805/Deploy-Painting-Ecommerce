@@ -146,7 +146,7 @@ const styles = `
     border-color: var(--c-amber-200);
     box-shadow: 0 0 0 3px var(--c-amber-50);
   }
-`;
+
 /* Main Content */
 .mo-container {
   max-width: 1200px;
