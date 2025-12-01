@@ -18,8 +18,8 @@ export function GalleryPage() {
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
-        const res = await axios.get('https://creative-palette-api.onrender.com
-/api/artworks')
+        const API = import.meta.env.VITE_BACKEND_URL
+        const res = await axios.get(`${API}/api/artworks`)
 
         const formatted = res.data.map((artwork: any) => ({
           ...artwork,
