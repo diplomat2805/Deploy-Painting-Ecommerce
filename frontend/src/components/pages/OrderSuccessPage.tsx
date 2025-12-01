@@ -8,6 +8,7 @@ import {
   Calendar,
   CreditCard
 } from "lucide-react";
+import { API } from "@/utils/api";
 
 // --- MOCK DATA FOR PREVIEW / ERROR FALLBACK ---
 const MOCK_ORDER = {
@@ -36,7 +37,6 @@ export function OrderSuccessPage() {
     const orderId = localStorage.getItem("lastOrderId");
 
     if (!orderId) {
-      // No real order, preview fallback
       setOrder(MOCK_ORDER);
       setLoading(false);
       return;
@@ -48,12 +48,10 @@ export function OrderSuccessPage() {
   // Fetch from backend
   const fetchOrder = async (orderId: string) => {
     try {
-      const res = await axios.get(`https://creative-palette-api.onrender.com
-/api/order/${orderId}`);
+      const res = await axios.get(`${API}/api/order/${orderId}`);
       setOrder(res.data);
       setLoading(false);
 
-      // Auto-download PDF if backend is available
       downloadInvoice(orderId);
     } catch (err) {
       console.error("Order fetch failed — using mock UI instead.");
@@ -62,7 +60,7 @@ export function OrderSuccessPage() {
     }
   };
 
-  // Download from backend OR fallback to print
+  // Download from backend OR fallback
   const downloadInvoice = async (orderId: string) => {
     if (orderId === MOCK_ORDER.orderId) {
       window.print();
@@ -70,11 +68,9 @@ export function OrderSuccessPage() {
     }
 
     try {
-      const res = await axios.get(
-        `https://creative-palette-api.onrender.com
-/api/payment/invoice/${orderId}`,
-        { responseType: "blob" }
-      );
+      const res = await axios.get(`${API}/api/payment/invoice/${orderId}`, {
+        responseType: "blob"
+      });
 
       const blob = new Blob([res.data], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
@@ -230,7 +226,6 @@ export function OrderSuccessPage() {
             <ArrowRight size={18} />
           </Link>
         </div>
-
       </div>
     </div>
   );

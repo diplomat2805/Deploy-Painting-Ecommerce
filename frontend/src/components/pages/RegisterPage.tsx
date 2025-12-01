@@ -25,8 +25,9 @@ export function RegisterPage() {
     }
 
     try {
-      const { data } = await axios.post('https://creative-palette-api.onrender.com
-/api/auth/register', {
+      const API = import.meta.env.VITE_BACKEND_URL
+
+      const { data } = await axios.post(`${API}/api/auth/register`, {
         name,
         email,
         password

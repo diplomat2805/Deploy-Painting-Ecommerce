@@ -12,6 +12,7 @@ import { Button } from '../ui/button'
 import { useApp } from '../../context/AppContext'
 import axios from 'axios'
 import { toast } from 'sonner@2.0.3'
+import { API } from '@/utils/api'
 
 type Tab = 'dashboard' | 'artworks' | 'orders'
 type OrderStatus =
@@ -59,13 +60,8 @@ export function AdminDashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const artworksRes = await axios.get('https://creative-palette-api.onrender.com
-/api/artworks')
-
-        const ordersRes = await axios.get(
-          'https://creative-palette-api.onrender.com
-/api/order/admin/all'
-        )
+        const artworksRes = await axios.get(`${API}/api/artworks`)
+        const ordersRes = await axios.get(`${API}/api/order/admin/all`)
 
         const formatted = artworksRes.data.map((a: any) => ({
           ...a,
@@ -135,9 +131,9 @@ export function AdminDashboard() {
 
     try {
       if (editingArtwork) {
+        // UPDATE
         const res = await axios.put(
-          `https://creative-palette-api.onrender.com
-/api/artworks/${editingArtwork.id}`,
+          `${API}/api/artworks/${editingArtwork.id}`,
           data,
           {
             headers: {
@@ -150,8 +146,8 @@ export function AdminDashboard() {
         const updated = { ...res.data, id: res.data._id }
         setArtworks(prev => prev.map(a => (a.id === updated.id ? updated : a)))
       } else {
-        const res = await axios.post('https://creative-palette-api.onrender.com
-/api/artworks', data, {
+        // CREATE
+        const res = await axios.post(`${API}/api/artworks`, data, {
           headers: {
             Authorization: `Bearer ${user.token}`,
             'Content-Type': 'multipart/form-data'
@@ -170,8 +166,7 @@ export function AdminDashboard() {
 
   const deleteArtwork = async (id: string) => {
     try {
-      await axios.delete(`https://creative-palette-api.onrender.com
-/api/artworks/${id}`, tokenHeader)
+      await axios.delete(`${API}/api/artworks/${id}`, tokenHeader)
       setArtworks(prev => prev.filter(a => a.id !== id))
     } catch (error) {
       console.log(error)
@@ -184,8 +179,7 @@ export function AdminDashboard() {
   const handleStatusChange = async (orderId: string, newStatus: OrderStatus) => {
     try {
       await axios.put(
-        `https://creative-palette-api.onrender.com
-/api/order/status/${orderId}`,
+        `${API}/api/order/status/${orderId}`,
         { status: newStatus },
         tokenHeader
       )
@@ -209,7 +203,7 @@ export function AdminDashboard() {
         <h1 className="font-serif text-neutral-900 mb-8">Admin Dashboard</h1>
 
         <div className="grid lg:grid-cols-5 gap-6">
-          {/* Left Menu */}
+          {/* LEFT NAVIGATION */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-2xl p-4 shadow-sm">
               <nav className="space-y-2">
@@ -249,11 +243,9 @@ export function AdminDashboard() {
             </div>
           </div>
 
-          {/* Right Content */}
+          {/* RIGHT CONTENT */}
           <div className="lg:col-span-4">
-            {/* --------------------------------------------------
-                DASHBOARD TAB
-            --------------------------------------------------- */}
+            {/* DASHBOARD */}
             {activeTab === 'dashboard' && (
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-2xl shadow-sm">
@@ -275,9 +267,7 @@ export function AdminDashboard() {
               </div>
             )}
 
-            {/* --------------------------------------------------
-                ARTWORKS TAB
-            --------------------------------------------------- */}
+            {/* ARTWORKS */}
             {activeTab === 'artworks' && (
               <div className="bg-white rounded-2xl p-6 shadow-sm">
                 <div className="flex justify-between mb-6">
@@ -326,9 +316,7 @@ export function AdminDashboard() {
               </div>
             )}
 
-            {/* --------------------------------------------------
-                ORDERS TAB
-            --------------------------------------------------- */}
+            {/* ORDERS */}
             {activeTab === 'orders' && (
               <div className="bg-white rounded-2xl p-6 shadow-sm">
                 <h2 className="font-serif text-neutral-900 mb-6">Orders</h2>
@@ -384,9 +372,7 @@ export function AdminDashboard() {
         </div>
       </div>
 
-      {/* --------------------------------------------------
-          MODAL
-      --------------------------------------------------- */}
+      {/* MODAL */}
       {showModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[9999]">
           <div className="bg-white p-6 rounded-xl w-full max-w-md shadow-2xl">

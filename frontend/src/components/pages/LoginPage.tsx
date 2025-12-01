@@ -4,7 +4,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { useApp } from '../../context/AppContext';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
@@ -17,14 +17,14 @@ export function LoginPage() {
 
     try {
       // 🔥 Backend login
-      const loggedInUser = await login(email, password);
+      await login(email, password);
 
       toast.success('Welcome back!');
 
       // 🔥 Get user saved in localStorage after backend login
       const savedUser = JSON.parse(localStorage.getItem("user") || "{}");
 
-      // 🔥 Admin redirect logic
+      // 🔥 Redirect based on admin flag
       if (savedUser.isAdmin) {
         navigate('/admin');
       } else {
